@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+
+        /* Кнопка с заданными координатами */
+        .my-button1 {
+            position: absolute;  /* Кнопка будет расположена относительно родителя (контейнера) */
+            top: 500px;  /* Отступ от верхней границы */
+            left: 172px; /* Отступ от левой границы */
+            padding: 40px 40px;
+
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-image: url('30.jpg');
+        }
+        .my-button2 {
+            position: absolute;  /* Кнопка будет расположена относительно родителя (контейнера) */
+            top: 500px;  /* Отступ от верхней границы */
+            left: 80.6px; /* Отступ от левой границы */
+            padding: 40px 40px;
+
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-image: url('31.jpg');
+        }
+        .my-button3 {
+            position: absolute;  /* Кнопка будет расположена относительно родителя (контейнера) */
+            top: 500px;  /* Отступ от верхней границы */
+            left: 264px; /* Отступ от левой границы */
+            padding: 40px 40px;
+
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-image: url('57.jpg');
+        }
+
+        .my-button4 {
+            position: absolute;  /* Кнопка будет расположена относительно родителя (контейнера) */
+            top: 150px;  /* Отступ от верхней границы */
+            left: 83px; /* Отступ от левой границы */
+            padding: 128px 128px;
+
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-image: url('13.jpg');
+        }
+
+        /* Устанавливаем фиксированный размер для всей страницы */
+        html, body {
+            width: 422px;  /* Ширина страницы */
+            height: 625px; /* Высота страницы */
+            margin: 0;     /* Убираем отступы */
+            padding: 0;    /* Убираем паддинги */
+            overflow: hidden;  /* Убираем полосы прокрутки */
+        }
+
+        /* Контейнер для содержимого */
+        .container {
+            width: 100%;  /* Ширина контейнера равна ширине страницы */
+            height: 100%; /* Высота контейнера равна высоте страницы */
+            background-color: #000000; /* Цвет фона контейнера */
+            display: flex;  /* Используем flexbox для центрирования содержимого */
+            justify-content: center;  /* Горизонтальное выравнивание */
+            align-items: center;  /* Вертикальное выравнивание */
+        }
+
+        /* Пример содержимого */
+        .content {
+            text-align: center;
+        }
+        video {
+            width: 128px; /* Ширина видео */
+            height: 128px; /* Высота видео */
+        }
+    </style>
+
+</head>
+<body>
+    <div class="container">
+        <div class="content">
+            <h1></h1>
+
+        </div>
+    </div>
+    <div class="container">
+        <!-- Кнопка -->
+        <button class="my-button1"></button>
+    </div>
+    <div class="container">
+        <!-- Кнопка -->
+        <button class="my-button2"></button>
+    </div>
+    <div class="container">
+        <!-- Кнопка -->
+        <button class="my-button3"></button>
+    </div>
+    <div class="container">
+        <!-- Кнопка -->
+        <button class="my-button4"></button>
+    </div>
+
+    <!-- Кнопка -->
+    <button class="my-button4" id="show-button" onclick="showVideo(event)"></button>
+
+    <!-- Контейнер для видео -->
+    <div id="video-container">
+        <video id="video" controls>
+            <source src="wheel2.mp4" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+        </video>
+    </div>
+
+    <script>
+        function showVideo(event) {
+            // Генерируем случайное число от 0 до 1
+            const randomChance = Math.random();
+
+            // Если случайное число меньше или равно 0.2, показываем видео
+            if (randomChance <= 1) {
+                // Получаем координаты кнопки относительно страницы
+                const buttonRect = event.target.getBoundingClientRect();
+
+                // Позиционируем контейнер с видео на координатах кнопки
+                const videoContainer = document.getElementById('video-container');
+                videoContainer.style.top = buttonRect.top + window.scrollY + 'px';
+                videoContainer.style.left = buttonRect.left + window.scrollX + 'px';
+
+                // Показываем видео
+                videoContainer.style.display = 'block';
+
+                // Воспроизведение видео
+                const video = document.getElementById('video');
+                video.play();
+
+                // После окончания видео скрываем его и снова показываем кнопку
+                video.onended = function() {
+                    videoContainer.style.display = 'none';
+                    document.getElementById('show-button').style.display = 'block';
+                };
+
+                // Скрываем кнопку
+                document.getElementById('show-button').style.display = 'none';
+            } else {
+                // Если шанс больше 0.2, то ничего не происходит
+                console.log('Шанс не сработал.');
+            }
+        }
+    </script>
+
+
+</body>
+</html>
